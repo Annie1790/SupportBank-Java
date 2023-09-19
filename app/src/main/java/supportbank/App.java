@@ -13,6 +13,8 @@ public class App {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        new CsvScanner().scanCsv();
+        CsvScanner test = new CsvScanner();
+        // test.listPerson("Laura B");
+        test.listAll();
     }
 }

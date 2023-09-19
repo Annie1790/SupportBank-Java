@@ -17,5 +17,7 @@ public class Account {
         this.money -= amount;
     }
 
-    
+    public String toString() {
+        return this.name + this.money;
+    }
 }
