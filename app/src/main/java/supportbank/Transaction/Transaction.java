@@ -5,14 +5,14 @@ public class Transaction {
     String from;
     String to;
     String narrative;
-    float amount;
+    double amount;
 
-    public Transaction(String date, String from, String to, String narrative, float amount) {
-        {this.date = date;
+    public Transaction(String date, String from, String to, String narrative, double amount) {
+        this.date = date;
         this.from = from;
         this.to = to;
         this.narrative = narrative;
-        this.amount = amount;}
+        this.amount = amount;
     }
 
     public String toString() {
@@ -25,5 +25,9 @@ public class Transaction {
 
     public String getTo() {
         return this.to;
+    }
+
+    public double getAmount() {
+        return this.amount;
     }
 }

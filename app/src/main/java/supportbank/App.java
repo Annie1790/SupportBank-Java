@@ -5,7 +5,7 @@ package supportbank;
 
 import java.io.FileNotFoundException;
 
-import supportbank.CsvScanner.CsvScanner;
+import supportbank.Bank.Bank;
 
 public class App {
     public String getGreeting() {
@@ -13,7 +13,7 @@ public class App {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        CsvScanner test = new CsvScanner();
+        Bank test = new Bank();
         // test.listPerson("Laura B");
         test.listAll();
     }
