@@ -4,29 +4,29 @@
 package supportbank;
 
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.util.Scanner;   
 
 import supportbank.Bank.Bank;
+import supportbank.Logging.Logging;
 
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
     public static void main(String[] args) throws FileNotFoundException {
         Bank bank = new Bank();
+        Logging logger = new Logging();
+        logger.programStart();
 
-        System.out.println("Enter command:" + "ListAll OR List");
-        Scanner scanner = new Scanner(System.in);
-        String userPrompt = scanner.nextLine();
-        if (userPrompt.equals("ListAll")) {
-            bank.listAll();
-        } else if (userPrompt.equals("List")) {
-            System.out.println("Enter account holder name:");
-            String name = scanner.nextLine();
-            bank.listPerson(name);
-        }
-        scanner.close();
+        // System.out.println("Enter command:" + "ListAll OR List");
+        // Scanner scanner = new Scanner(System.in);
+        // String userPrompt = scanner.nextLine();
+        // if (userPrompt.equals("ListAll")) {
+        //     bank.listAllAccountAndBalance();
+        // } else if (userPrompt.equals("List")) {
+        //     System.out.println("Enter account holder name:");
+        //     String name = scanner.nextLine();
+        //     bank.listPerson(name);
+        // }
+        // scanner.close();
         
     }
 }

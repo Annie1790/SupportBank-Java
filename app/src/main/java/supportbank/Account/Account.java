@@ -1,10 +1,6 @@
 package supportbank.Account;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Account {
-    Map<String, Account> myMap = new HashMap<>();
     
     private String name;
     private double money;

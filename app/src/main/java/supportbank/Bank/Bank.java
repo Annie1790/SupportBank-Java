@@ -22,9 +22,9 @@ public class Bank {
 
     ArrayList<Transaction> transactionList = new ArrayList<>();
 
-    public void scanCsv() throws FileNotFoundException {
+    private void scanCsv(String fileToRead) throws FileNotFoundException {
         final BufferedReader reader = new BufferedReader(
-                new FileReader("/home/aniko/bootcamp/SupportBank-Java/Transactions2014.csv"));
+                new FileReader(fileToRead));
         String line;
         try {
             while ((line = reader.readLine()) != null) {
@@ -38,7 +38,7 @@ public class Bank {
         }
     }
 
-    public void createTransactionList() {
+    private void createTransactionList() {
         for (List<String> segment : csvLines) {
             if (segment.get(CLOUMN_DATE).equals("Date")) {
                 continue;
@@ -52,43 +52,46 @@ public class Bank {
         }
     }
 
-    public void listPerson(String givenName) {
-        String result = "";
+    private void createTransactionArray() {
         try {
-            this.scanCsv();
+            this.scanCsv("/home/aniko/bootcamp/SupportBank-Java/Transactions2014.csv");
+            this.scanCsv("/home/aniko/bootcamp/SupportBank-Java/DodgyTransactions2015.csv");
             this.createTransactionList();
-            for (Transaction segment : transactionList) {
-                String from = segment.getFrom();
-                String to = segment.getTo();
-                if (from.equals(givenName) || to.equals(givenName)) {
-                    result += (segment.toString() + "\n");
-                }
-            }
         } catch (FileNotFoundException e) {
             System.out.println(e);
+        }
+    }
+
+    public void listPerson(String givenName) {
+        createTransactionArray();
+        String result = "";
+        for (Transaction segment : transactionList) {
+            String from = segment.getFrom();
+            String to = segment.getTo();
+            if (from.equals(givenName) || to.equals(givenName)) {
+                result += (segment.toString() + "\n");
+            }
         }
         System.out.print(result);
     }
 
-    public void listAll() {
+    // code duplication
+    // refactor the two functions
+
+    public void listAllAccountAndBalance() {
+        createTransactionArray();
         AccountSystem accounts = new AccountSystem();
-        try {
-            this.scanCsv();
-            this.createTransactionList();
-            for (Transaction segment : transactionList) {
-                String from = segment.getFrom();
-                String to = segment.getTo();
+        for (Transaction segment : transactionList) {
+            String from = segment.getFrom();
+            String to = segment.getTo();
 
-                accounts.addAccount(from);
-                accounts.addAccount(to);
+            accounts.addAccount(from);
+            accounts.addAccount(to);
 
-                accounts.transaction(from, to, segment.getAmount());
-            }
-            System.out.println(accounts.toString());
-            accounts.printResult();
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
+            accounts.createTransaction(from, to, segment.getAmount());
         }
+        System.out.println(accounts.toString());
+        accounts.printResult();
 
     }
 }

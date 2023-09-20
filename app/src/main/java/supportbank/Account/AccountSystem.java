@@ -8,10 +8,10 @@ public class AccountSystem {
     Map<String, Account> accountSystem = new HashMap<String, Account>();
 
     public void addAccount(String name) {
-        accountSystem.put(name, new Account(name));
+        accountSystem.putIfAbsent(name, new Account(name));
     }
 
-    public void transaction(String from, String to, double amount) {
+    public void createTransaction(String from, String to, double amount) {
         Account personFrom = accountSystem.get(from);
         Account personTo = accountSystem.get(to);
 
