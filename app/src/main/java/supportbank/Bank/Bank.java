@@ -114,6 +114,5 @@ public class Bank {
         for (Transaction transaction : transactionList) {
             face.execute(transaction);
         }
-
     }
 }

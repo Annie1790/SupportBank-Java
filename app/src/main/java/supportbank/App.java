@@ -18,20 +18,26 @@ public class App {
         Logging logger = new Logging();
         logger.programStart();
 
-        System.out.println("Enter command:" + "ListAll OR List");
+        System.out.println("Enter command:" + "ListAll OR List, or enter Exit");
         Scanner scanner = new Scanner(System.in);
-        String userPrompt = scanner.nextLine();
-        if (userPrompt.equals("ListAll")) {
-            ListAllAccount accountAndBalance = new ListAllAccount();
-            bank.executeAll(accountAndBalance);
-        } else if (userPrompt.equals("List")) {
-            System.out.println("Enter account holder name:");
-            String name = scanner.nextLine();
-            ListPersonTransaction personTransaction = new ListPersonTransaction(name);
-            bank.executeAll(personTransaction);
-            bank.listPerson(name);
+        while (true) {
+            String userPrompt = scanner.nextLine();
+            if (userPrompt.equals("ListAll")) {
+                ListAllAccount accountAndBalance = new ListAllAccount();
+                bank.executeAll(accountAndBalance);
+
+            } else if (userPrompt.equals("List")) {
+                System.out.println("Enter account holder name:");
+                String name = scanner.nextLine();
+                ListPersonTransaction personTransaction = new ListPersonTransaction(name);
+                bank.executeAll(personTransaction);
+            } else if (userPrompt.equals("Exit")) {
+                break;
+            } else {
+                System.out.println("Oops! Looks like you entered an incorrect prompt. Please try again!");
+            }
         }
         scanner.close();
-        
+
     }
 }

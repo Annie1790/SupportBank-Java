@@ -11,13 +11,10 @@ public class ListPersonTransaction implements OpInterface {
 
     @Override
     public void execute(Transaction transaction) {
-        String result = "";
 
         if (transaction.getFrom().equals(name) || transaction.getTo().equals(name)) {
-            result += (transaction.toString() + "\n");
+            System.out.println(transaction.toString());
         }
-
-        System.out.println(result);
     }
     
 }
