@@ -4,9 +4,12 @@
 package supportbank;
 
 import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 import supportbank.Bank.Bank;
 import supportbank.Logging.Logging;
+import supportbank.Operation.ListAllAccount;
+import supportbank.Operation.ListPersonTransaction;
 
 public class App {
 
@@ -15,17 +18,20 @@ public class App {
         Logging logger = new Logging();
         logger.programStart();
 
-        // System.out.println("Enter command:" + "ListAll OR List");
-        // Scanner scanner = new Scanner(System.in);
-        // String userPrompt = scanner.nextLine();
-        // if (userPrompt.equals("ListAll")) {
-        //     bank.listAllAccountAndBalance();
-        // } else if (userPrompt.equals("List")) {
-        //     System.out.println("Enter account holder name:");
-        //     String name = scanner.nextLine();
-        //     bank.listPerson(name);
-        // }
-        // scanner.close();
+        System.out.println("Enter command:" + "ListAll OR List");
+        Scanner scanner = new Scanner(System.in);
+        String userPrompt = scanner.nextLine();
+        if (userPrompt.equals("ListAll")) {
+            ListAllAccount accountAndBalance = new ListAllAccount();
+            bank.executeAll(accountAndBalance);
+        } else if (userPrompt.equals("List")) {
+            System.out.println("Enter account holder name:");
+            String name = scanner.nextLine();
+            ListPersonTransaction personTransaction = new ListPersonTransaction(name);
+            bank.executeAll(personTransaction);
+            bank.listPerson(name);
+        }
+        scanner.close();
         
     }
 }

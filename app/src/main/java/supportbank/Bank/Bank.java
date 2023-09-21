@@ -9,6 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import supportbank.Account.AccountSystem;
+import supportbank.Operation.ListAllAccount;
+import supportbank.Operation.ListPersonTransaction;
+import supportbank.Operation.OpInterface;
 import supportbank.Transaction.Transaction;
 
 public class Bank {
@@ -55,12 +58,27 @@ public class Bank {
     private void createTransactionArray() {
         try {
             this.scanCsv("/home/aniko/bootcamp/SupportBank-Java/Transactions2014.csv");
-            this.scanCsv("/home/aniko/bootcamp/SupportBank-Java/DodgyTransactions2015.csv");
+            // this.scanCsv("/home/aniko/bootcamp/SupportBank-Java/DodgyTransactions2015.csv");
             this.createTransactionList();
         } catch (FileNotFoundException e) {
             System.out.println(e);
         }
     }
+
+    // code duplication
+    // refactor the two functions
+    // possible solution:
+    // Command pattern?
+    // the problem is that I can't pass functions as I would do in JavaScript,
+    // instead I need to pass a parent class/interface
+    // create 2 class with an interface
+    // interface will have an execution method which has a transaction argument
+    // for the 2 classes, I copy the right methods listed below
+    // bank has one method, where I create 2 instance objects:
+    // ListAllPersonAndBalance and ListPersonTransaction
+    // the method above will have one argument: Operation interface
+    // operation.executeCode(segment)
+    //
 
     public void listPerson(String givenName) {
         createTransactionArray();
@@ -75,9 +93,6 @@ public class Bank {
         System.out.print(result);
     }
 
-    // code duplication
-    // refactor the two functions
-
     public void listAllAccountAndBalance() {
         createTransactionArray();
         AccountSystem accounts = new AccountSystem();
@@ -90,8 +105,15 @@ public class Bank {
 
             accounts.createTransaction(from, to, segment.getAmount());
         }
-        System.out.println(accounts.toString());
         accounts.printResult();
+
+    }
+
+    public void executeAll(OpInterface face) {
+        createTransactionArray();
+        for (Transaction transaction : transactionList) {
+            face.execute(transaction);
+        }
 
     }
 }
