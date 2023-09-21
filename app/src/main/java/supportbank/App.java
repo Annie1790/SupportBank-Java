@@ -4,7 +4,6 @@
 package supportbank;
 
 import java.io.FileNotFoundException;
-import java.util.Scanner;   
 
 import supportbank.Bank.Bank;
 import supportbank.Logging.Logging;
